@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  database:
+    image: 'postgres:latest'
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: vishal
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: devcord
+    networks:
+      - postgres-network
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+networks:
+  postgres-network:
+    driver: bridge
+
+volumes:
+  db-data:
