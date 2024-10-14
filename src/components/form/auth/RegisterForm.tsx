@@ -2,25 +2,14 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { registerFormSchema } from "@/lib/schema";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import Link from "next/link";
 import SocialLogin from "@/components/auth/SocialLogin";
 import ErrorMessage from "@/components/auth/ErrorMessage";
@@ -28,6 +17,8 @@ import SuccessMessage from "@/components/auth/SuccessMessage";
 import { register } from "@/actions/auth.action";
 import { useState } from "react";
 import CardWrapper from "@/components/auth/CardWrapper";
+import { registerFormSchema } from "@/schema/auth.schema";
+import { CustomFormMessage, CustomFormTitleMessage } from "../CustomFormMessage";
 
 type props = {};
 
@@ -85,7 +76,7 @@ const RegisterForm = (props: props) => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <CustomFormTitleMessage title="Name" />
                   <FormControl>
                     <Input
                       type="text"
@@ -94,7 +85,7 @@ const RegisterForm = (props: props) => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  
                 </FormItem>
               )}
             />
@@ -103,7 +94,7 @@ const RegisterForm = (props: props) => {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <CustomFormTitleMessage title="Username" />
                   <FormControl>
                     <Input
                       type="text"
@@ -112,7 +103,7 @@ const RegisterForm = (props: props) => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  
                 </FormItem>
               )}
             />
@@ -121,7 +112,7 @@ const RegisterForm = (props: props) => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <CustomFormTitleMessage title="Email" />
                   <FormControl>
                     <Input
                       type="email"
@@ -130,7 +121,7 @@ const RegisterForm = (props: props) => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  
                 </FormItem>
               )}
             />
@@ -139,7 +130,7 @@ const RegisterForm = (props: props) => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <CustomFormTitleMessage title="Password" />
                   <FormControl>
                     <Input
                       type="password"
@@ -148,7 +139,7 @@ const RegisterForm = (props: props) => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  
                 </FormItem>
               )}
             />

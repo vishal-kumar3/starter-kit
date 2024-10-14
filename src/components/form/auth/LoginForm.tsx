@@ -2,7 +2,6 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { loginFormSchema } from "@/lib/schema";
 import {
   Form,
   FormControl,
@@ -27,6 +26,8 @@ import SuccessMessage from "@/components/auth/SuccessMessage";
 import { useState } from "react";
 import { login } from "@/actions/auth.action";
 import CardWrapper from "@/components/auth/CardWrapper";
+import { loginFormSchema } from "@/schema/auth.schema";
+import { CustomFormMessage, CustomFormTitleMessage } from "../CustomFormMessage";
 
 type props = {};
 
@@ -70,7 +71,7 @@ const LoginForm = (props: props) => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <CustomFormTitleMessage title="Email" />
                   <FormControl>
                     <Input
                       type="email"
@@ -79,7 +80,6 @@ const LoginForm = (props: props) => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -88,7 +88,7 @@ const LoginForm = (props: props) => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <CustomFormTitleMessage title="Password" />
                   <FormControl>
                     <Input
                       type="password"
@@ -97,27 +97,31 @@ const LoginForm = (props: props) => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  
                 </FormItem>
               )}
             />
-            <Button
-              size="sm"
-              variant="link"
-              asChild
-              className="px-0 font-normal"
-            >
-              <Link href="/auth/reset-password">Forgot Password?</Link>
-            </Button>
-            <ErrorMessage message={error} />
-            <SuccessMessage message={success} />
-            <Button
-              className="w-full bg-black text-white font-semibold dark:disabled:bg-black/50 disabled:bg-gray-300 disabled:cursor-not-allowed"
-              type="submit"
-              disabled={form.formState.isSubmitting || loadingButton}
-            >
-              Login
-            </Button>
+            <div>
+              <div className="py-1">
+                <ErrorMessage message={error} />
+                <SuccessMessage message={success} />
+              </div>
+              <Button
+                size="sm"
+                variant="link"
+                asChild
+                className="p-0 font-normal"
+              >
+                <Link href="/auth/reset-password">Forgot Password?</Link>
+              </Button>
+              <Button
+                className="w-full bg-black text-white font-semibold dark:disabled:bg-black/50 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                type="submit"
+                disabled={form.formState.isSubmitting || loadingButton}
+              >
+                Login
+              </Button>
+            </div>
           </form>
       </Form>
     </CardWrapper>

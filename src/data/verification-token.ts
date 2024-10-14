@@ -28,3 +28,25 @@ export const getVerificationTokenByToken = async (
   return verificationToken
 
 }
+
+export const getPasswordResetTokenByEmail = async (email: string) => {
+
+  const passwordResetToken = await prisma.passwordResetToken.findFirst({
+    where: {
+      email
+    }
+  }).catch(error => null)
+
+  return passwordResetToken
+}
+
+export const getPasswordResetTokenByToken = async (token: string) => {
+
+  const passwordResetToken = await prisma.passwordResetToken.findUnique({
+    where: {
+      token
+    }
+  }).catch(error => null)
+
+  return passwordResetToken
+}

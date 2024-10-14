@@ -1,6 +1,5 @@
 "use server";
 
-import { loginFormSchema, registerFormSchema } from "@/lib/schema";
 import prisma from "@/prisma";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
@@ -9,7 +8,8 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { generateVerificationToken } from "@/lib/token";
 import { getUserByEmail } from "@/data/user";
-import { sendVerificationEmail } from "@/lib/mail";
+import { sendVerificationEmail } from "@/lib/nodemailer";
+import { loginFormSchema, registerFormSchema } from "@/schema/auth.schema";
 
 export const login = async (data: z.infer<typeof loginFormSchema>) => {
   const validatedFields = await loginFormSchema.safeParseAsync(data);
@@ -26,7 +26,7 @@ export const login = async (data: z.infer<typeof loginFormSchema>) => {
   if (!existingUser || !existingUser.email || !existingUser.password){
     return { error: "Email does not exists!" }
   }
-  
+
   const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
   if(!isPasswordCorrect){
     return { error: "Invalid Credentials!!" };
