@@ -1,20 +1,7 @@
+import { getAuthTrustHost, getNodemailerPass, getNodemailerUser } from "@/utils/getEnvirmentvariables";
 import nodemailer from "nodemailer";
 
-const getNodemailerUser = () => {
-  if (process.env.NODEMAILER_EMAIL) {
-    return process.env.NODEMAILER_EMAIL;
-  } else {
-    throw new Error("NODEMAILER_EMAIL is not defined");
-  }
-}
-
-const getNodemailerPass = () => {
-  if (process.env.NODEMAILER_EMAIL_PASS) {
-    return process.env.NODEMAILER_EMAIL_PASS;
-  } else {
-    throw new Error("NODEMAILER_EMAIL_PASS is not defined");
-  }
-}
+const host = getAuthTrustHost()
 
 export const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -29,7 +16,7 @@ export const mailOptions = {
 }
 
 export const sendVerificationEmail = async (email: string, token: string) => {
-  const confirmationUrl = `${process.env.AUTH_TRUST_HOST}/auth/verify-email?token=${token}`
+  const confirmationUrl = `${host}/auth/verify-email?token=${token}`
 
   await transporter.sendMail({
     ...mailOptions,
@@ -107,7 +94,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
       <body>
         <div class="container">
           <div class="email-body">
-            <amp-img src="${process.env.AUTH_TRUST_HOST}/images/devcord_1.jpg" alt="Devcord Logo" width="150" height="50" layout="responsive"></amp-img>
+            <amp-img src="${host}/images/devcord_1.jpg" alt="Devcord Logo" width="150" height="50" layout="responsive"></amp-img>
             <h1>Verify Your Devcord Account</h1>
             <p>Hello <span id="username">${email}</span>,</p>
             <p>Welcome to Devcord, the premier chat application for developers. We're thrilled to have you join our community!</p>
@@ -142,7 +129,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const confirmationUrl = `${process.env.AUTH_TRUST_HOST}/auth/set-password?token=${token}`
+  const confirmationUrl = `${host}/auth/set-password?token=${token}`
 
   await transporter.sendMail({
     ...mailOptions,
@@ -220,7 +207,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
       <body>
         <div class="container">
           <div class="email-body">
-            <amp-img src="${process.env.AUTH_TRUST_HOST}/images/devcord_1.jpg" alt="Devcord Logo" width="150" height="50" layout="responsive"></amp-img>
+            <amp-img src="${host}/images/devcord_1.jpg" alt="Devcord Logo" width="150" height="50" layout="responsive"></amp-img>
             <h1>Reset Your Devcord Password</h1>
             <p>Hello <span id="username">${email}</span>,</p>
             <p>We received a request to reset your password for your Devcord account. If you didn't make this request, please ignore this email.</p>

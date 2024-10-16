@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
 
-      <body className={`${roboto.variable} antialiased`}>
+      <body className={`${roboto.variable} pb-[60px] sm:pb-0 antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
